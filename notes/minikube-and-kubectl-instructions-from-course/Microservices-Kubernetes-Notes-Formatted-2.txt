@@ -1,0 +1,34 @@
+q1e2e3r4
+q1w2e3r4
+
+Commands
+--------------
+
+- base64 endode decode utilities
+---------------------------------------
+echo -n root | base64
+echo -n qwerty | base64
+echo -n cXdlcnR5 | base64 --decode
+
+- Create entity from yaml (now the entity is a secret)
+--------------------------------------------------------------
+kubectl create -f "E:\Kubernetes\Web Secrets\web-secrets.yaml"
+kubectl get secret
+kubectl get secret nodejs-secret -o yaml
+(kornyezeti valtozo, shared volume)
+
+
+kubectl exec nodejs-depl-s-569d87fd6-f5vq7 -i -t -- bash
+
+- create service for secret
+---------------------------
+kubectl expose deploy nodejs-depl-s --port 3000 --name=nodejs-service-s --type=NodePort
+- export created secret
+---------------------------
+kubectl get service nodejs-service-s -o yaml > service-nodejs-secret.yaml
+
+ingress
+----------
+- not automatic load balancing, but path specific load serving
+
+ReverseProxy?

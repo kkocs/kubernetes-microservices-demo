@@ -1,0 +1,68 @@
+Microservices Notes(Lecture - Kubernetes)
+--------------------------------------------------
+- Labels for identification
+- Selector labels - marking communication target between pods.
+
+
+                             You
+                            / \
+                             |
+                        ------------
+--------------           | Service|
+|Deployment  |         -------------
+|______ ____ |             / \
+             \              |
+               \    --------------------
+----------       \   |        Pod      |
+|  App    |   =   \  |    ----    ---  |
+|         |          |    |\\|    | |  | 
+----------           |    |\\|    | |  |
+                    ---------------------
+
+
+Deployment object identifier:
+-----------------------------------
+Registry/user/image
+hub/laszlobarabas/im.1.1
+
+Commands
+--------------
+- create deployment
+kubectl run nodejs-deployment --image=laszlobarabas/nodejs-ci-demo:1.0 --port=3000 
+// default docker.hub registry & port of container
+
+kubectl get deployments
+kubectl logs -f nodejs-deployment-5b7b86664-4pgvs
+kubectl exec nodejs-deployment-5b7b86664-4pgvs -i -t -- bash
+- create service
+kubectl expose deploy nodejs-deployment --port 3000 --name=nodejs-service
+- list service/services
+kubectl get services
+kubectl get service nodejs-service -o yaml
+kubectl describe service nodejs-service
+minikube service list
+
+- update image of a deployment
+kubectl set image deployment/nodejs-deployment nodejs-deployment=laszlobarabas/nodejs-ci-demo:1.1
+
+- undo deployment
+kubectl rollout undo deployment/nodejs-deployment
+
+- rollout deployment to previous version
+------------------------------------------------
+kubectl rollout undo --help
+kubectl rollout undo deployment/nodejs-deployment --to-revision=2
+
+- scaling
+--------------------------------------------------------------------
+kubectl scale deployment/nodejs-deployment --replicas=3
+
+Port Mapping
+----------------
+port                   (Service)
+containerPort  (Container)
+targetPort        (Pod)
+nodePort          (Node)
+
+A service is for the realization the communication mechanism(in inner network or outer network).
+NodePort (is a service type than can be accessed by outside clients).
