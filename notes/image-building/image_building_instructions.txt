@@ -1,5 +1,5 @@
 Spring Boot Application Dockerfile sources
-------------------------------------------
+------------------------------------------------------------------------------------
 1. https://spring.io/guides/gs/spring-boot-docker/
 2. https://github.com/LaszloBarabasUBB/nodejs-ci-heroku-demo/commit/3c0d8b0ac4476313b5630ee40231ba21517bde0f
 3. https://itnext.io/migrating-a-spring-boot-service-to-kubernetes-in-5-steps-7c1702da81b6
@@ -7,13 +7,15 @@ Spring Boot Application Dockerfile sources
 4. https://ropenscilabs.github.io/r-docker-tutorial/04-Dockerhub.html
 
 Downlaod Newrelic to Include In The Image
------------------------------------------
+------------------------------------------------------------------------------------
 wget -N https://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip
 
-Commands
-------------------------------------
+------------------------------------------------------------------------------------
 Image building
-------------------------------------
+- Replace app.jar with appropriate jar and execute the following commands.
+------------------------------------------------------------------------------------
+Commands
+------------------------------------------------------------------------------------
 docker build -t beer-stock-server .
 docker tag beer-stock-server kkocs/beer-stock-server:2.0
 docker push kkocs/beer-stock-server:2.0

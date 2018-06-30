@@ -1,0 +1,16 @@
+FROM openjdk:8-jdk-alpine
+VOLUME /tmp
+MAINTAINER Krisztian Kocs <kocs_krisztian@yahoo.com>
+ADD app.jar app.jar
+COPY newrelic newrelic
+
+ENV JAVA_OPTS=""
+# ENV SPRING_PROFILE="default"
+ENV SPRING_PROFILE="verify,mongodb"
+EXPOSE 8080
+
+ENTRYPOINT exec java $JAVA_OPTS \
+ -javaagent:newrelic/newrelic.jar \
+ -Djava.security.egd=file:/dev/./urandom \
+ -Dspring.profiles.active=$SPRING_PROFILE \
+ -jar app.jar
